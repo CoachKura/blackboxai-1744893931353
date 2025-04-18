@@ -1,97 +1,137 @@
-# Deployment Setup Guide
+# AstroBalendar Deployment Guide
 
-## GitHub Repository Setup
+This guide explains how to deploy AstroBalendar to an AWS EC2 instance.
 
-1. Create a new GitHub repository (if not already created)
-2. Push your code to the repository:
+## Prerequisites
+
+1. An AWS account with EC2 access
+2. A registered domain (astrobalendar.com)
+3. Basic knowledge of AWS and Linux commands
+
+## Initial Setup
+
+1. Launch an EC2 instance:
+   - Amazon Linux 2 AMI
+   - t2.micro or larger
+   - Configure security group to allow:
+     - HTTP (80)
+     - HTTPS (443)
+     - SSH (22)
+
+2. Configure your domain:
+   - Point your domain's A record to your EC2 instance's public IP
+   - Add both www.astrobalendar.com and astrobalendar.com
+
+## Server Setup
+
+1. Connect to your EC2 instance:
+   ```bash
+   ssh -i your-key.pem ec2-user@your-ec2-ip
+   ```
+
+2. Make the setup script executable and run it:
+   ```bash
+   chmod +x scripts/setup-ec2.sh
+   ./scripts/setup-ec2.sh
+   ```
+
+3. Set up SSL certificate:
+   ```bash
+   sudo certbot --nginx -d astrobalendar.com -d www.astrobalendar.com
+   ```
+
+## Deployment
+
+1. Update the deployment configuration:
+   - Edit `scripts/deploy.sh`
+   - Set your EC2 instance IP in `EC2_HOST`
+
+2. Make the deployment script executable:
+   ```bash
+   chmod +x scripts/deploy.sh
+   ```
+
+3. Deploy the application:
+   ```bash
+   ./scripts/deploy.sh
+   ```
+
+## Maintenance
+
+### SSL Certificate Renewal
+Certbot automatically renews certificates before they expire. To manually renew:
 ```bash
-git init
-git add .
-git commit -m "Initial commit"
-git branch -M main
-git remote add origin YOUR_GITHUB_REPO_URL
-git push -u origin main
+sudo certbot renew
 ```
 
-## GitHub Secrets Setup
-
-Add the following secrets to your GitHub repository (Settings > Secrets and variables > Actions):
-
-1. `EC2_SSH_PRIVATE_KEY`: Your EC2 instance's private key content
-   - Copy the content of your .pem file
-   - Include the entire key including "-----BEGIN RSA PRIVATE KEY-----" and "-----END RSA PRIVATE KEY-----"
-
-2. `EC2_HOST`: Your EC2 instance's public IP address
-   - Example: 54.83.235.5
-
-3. `EC2_USER`: The EC2 instance's username
-   - Use: ec2-user
-
-## EC2 Setup
-
-1. Install Node.js and PM2 on your EC2 instance:
-```bash
-# Connect to your EC2 instance
-ssh -i "Lakshmi_Hayagreever.pem" ec2-user@54.83.235.5
-
-# Install Node.js
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-source ~/.bashrc
-nvm install 18
-nvm use 18
-
-# Install PM2 globally
-npm install -g pm2
-```
-
-2. Create the project directory:
-```bash
-mkdir -p ~/astrobalendar/04_frontend_web_react
-```
-
-## Deployment Process
-
-The deployment will be automated through GitHub Actions:
-
-1. Every push to the main branch will trigger the deployment
-2. GitHub Actions will:
-   - Build the application
-   - Deploy to EC2
-   - Restart the application using PM2
-
-## Manual Deployment (if needed)
-
-You can also deploy manually using the deployment script:
-```bash
-chmod +x scripts/deploy.sh
-./scripts/deploy.sh
-```
-
-## Monitoring
-
-Monitor your application using PM2:
+### Monitoring
+Monitor the application using PM2:
 ```bash
 pm2 status
-pm2 logs frontend
+pm2 logs
+```
+
+### Nginx
+Common Nginx commands:
+```bash
+sudo systemctl status nginx  # Check status
+sudo systemctl restart nginx # Restart
+sudo nginx -t               # Test configuration
 ```
 
 ## Troubleshooting
 
-If you encounter any issues:
+1. Check Nginx logs:
+   ```bash
+   sudo tail -f /var/log/nginx/error.log
+   ```
 
-1. Check PM2 logs:
-```bash
-pm2 logs frontend
-```
+2. Check application logs:
+   ```bash
+   pm2 logs
+   ```
 
-2. Check GitHub Actions logs in your repository's Actions tab
+3. Check SSL certificate:
+   ```bash
+   sudo certbot certificates
+   ```
 
-3. Verify EC2 permissions:
-```bash
-ls -la ~/astrobalendar/04_frontend_web_react
-```
+## Backup
 
-4. Check Node.js and PM2 installation:
-```bash
-node -v
-pm2 -v
+1. Database backups (when implemented):
+   - Set up automated backups
+   - Store backups in S3
+
+2. Application files:
+   ```bash
+   # From your local machine
+   rsync -avz ec2-user@your-ec2-ip:/var/www/astrobalendar ./backup/
+   ```
+
+## Security Considerations
+
+1. Keep the system updated:
+   ```bash
+   sudo yum update -y
+   ```
+
+2. Monitor security groups and limit access
+
+3. Regularly check and update dependencies:
+   ```bash
+   npm audit
+   npm update
+   ```
+
+4. Enable and configure AWS CloudWatch for monitoring
+
+## Support
+
+For any deployment issues:
+1. Check the application logs
+2. Verify Nginx configuration
+3. Ensure all services are running
+4. Check security group settings
+5. Verify domain DNS settings
+
+Remember to always test in a staging environment before deploying to production.
