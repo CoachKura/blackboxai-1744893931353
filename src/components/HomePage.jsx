@@ -1,196 +1,312 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 
 const HomePage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-900 via-indigo-900 to-blue-900">
-      {/* Hero Section */}
-      <header className="relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center"
-          >
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              AstroBalendar
-              <span className="block text-2xl md:text-3xl text-purple-300 mt-2">
-                KP System Astrology
-              </span>
-            </h1>
-            <p className="text-xl text-gray-300 mb-8">
-              Discover Your Path with Precise KP Astrology Predictions
-            </p>
-            <div className="flex justify-center gap-4">
-              <button className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full transition duration-300">
-                Get Started
-              </button>
-              <button className="bg-transparent border-2 border-purple-500 text-white font-bold py-3 px-8 rounded-full hover:bg-purple-500 transition duration-300">
-                Learn More
+    <div className="min-h-screen bg-purple-900">
+      {/* Navigation */}
+      <nav className="bg-purple-900 shadow-lg">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center">
+              <a href="/" className="text-2xl font-bold text-yellow-400">AstroBalendar</a>
+            </div>
+            <div className="hidden md:flex items-center space-x-6">
+              <a href="#home" className="text-white hover:text-yellow-400 transition">Home</a>
+              <a href="#predictions" className="text-white hover:text-yellow-400 transition">KP Predictions</a>
+              <a href="#matchmaking" className="text-white hover:text-yellow-400 transition">Matchmaking</a>
+              <a href="#prasna" className="text-white hover:text-yellow-400 transition">Prasna</a>
+              <a href="#calendar" className="text-white hover:text-yellow-400 transition">Calendar</a>
+              <a href="#contact" className="text-white hover:text-yellow-400 transition">Contact</a>
+            </div>
+            <div className="md:hidden">
+              <button className="text-white">
+                <i className="fas fa-bars text-2xl"></i>
               </button>
             </div>
-          </motion.div>
-        </div>
-      </header>
-
-      {/* Features Section */}
-      <section className="py-20 bg-black bg-opacity-30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-white mb-12">
-            KP System Features
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.2 }}
-                className="bg-white bg-opacity-10 rounded-lg p-6 backdrop-blur-sm"
-              >
-                <div className="text-purple-400 text-3xl mb-4">
-                  {feature.icon}
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-300">
-                  {feature.description}
-                </p>
-              </motion.div>
-            ))}
           </div>
         </div>
-      </section>
+      </nav>
 
-      {/* Mobile App Section */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="md:w-1/2 mb-8 md:mb-0"
-            >
-              <h2 className="text-3xl font-bold text-white mb-4">
-                Get Our Mobile App
-              </h2>
-              <p className="text-gray-300 mb-6">
-                Access KP Astrology predictions on the go. Download our mobile app for instant astrological insights and daily guidance.
-              </p>
-              <div className="flex gap-4">
-                <button className="bg-black text-white px-6 py-2 rounded-lg flex items-center gap-2">
-                  <i className="fab fa-apple text-2xl"></i>
-                  App Store
-                </button>
-                <button className="bg-black text-white px-6 py-2 rounded-lg flex items-center gap-2">
-                  <i className="fab fa-google-play text-2xl"></i>
-                  Play Store
-                </button>
-              </div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="md:w-1/2"
-            >
-              <div className="relative">
-                {/* Placeholder for mobile app mockup */}
-                <div className="w-full h-[500px] bg-purple-800 bg-opacity-30 rounded-xl backdrop-blur-sm flex items-center justify-center">
-                  <span className="text-white text-xl">App Preview</span>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Prediction Tools Section */}
-      <section className="py-20 bg-black bg-opacity-30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-white mb-12">
-            KP Prediction Tools
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {predictionTools.map((tool, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-gradient-to-br from-purple-800 to-indigo-900 rounded-lg p-6 cursor-pointer hover:transform hover:scale-105 transition duration-300"
-              >
-                <h3 className="text-xl font-semibold text-white mb-2">
-                  {tool.title}
-                </h3>
-                <p className="text-gray-300 text-sm">
-                  {tool.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Call to Action */}
-      <section className="py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            <h2 className="text-3xl font-bold text-white mb-4">
-              Start Your Astrological Journey Today
-            </h2>
-            <p className="text-gray-300 mb-8">
-              Get precise predictions and insights with our KP System tools
+      {/* Hero Section */}
+      <section id="home" className="relative bg-purple-900">
+        <div className="max-w-7xl mx-auto px-4 py-20">
+          <div className="text-center">
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
+              Advanced <span className="text-yellow-400">KP Astrology</span> Platform
+            </h1>
+            <p className="text-gray-300 text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+              Discover your destiny with our comprehensive KP system astrology platform. Get accurate predictions, compatibility analysis, and auspicious timing guidance.
             </p>
-            <button className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full transition duration-300">
-              Get Started Now
-            </button>
-          </motion.div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+              <a href="#predictions" className="bg-purple-800 text-white p-4 rounded-lg hover:bg-purple-700 transition text-center">
+                <i className="fas fa-chart-line text-2xl text-yellow-400 mb-2"></i>
+                <h3 className="font-semibold">KP Predictions</h3>
+              </a>
+              <a href="#matchmaking" className="bg-purple-800 text-white p-4 rounded-lg hover:bg-purple-700 transition text-center">
+                <i className="fas fa-heart text-2xl text-yellow-400 mb-2"></i>
+                <h3 className="font-semibold">Matchmaking</h3>
+              </a>
+              <a href="#prasna" className="bg-purple-800 text-white p-4 rounded-lg hover:bg-purple-700 transition text-center">
+                <i className="fas fa-question-circle text-2xl text-yellow-400 mb-2"></i>
+                <h3 className="font-semibold">Prasna</h3>
+              </a>
+              <a href="#calendar" className="bg-purple-800 text-white p-4 rounded-lg hover:bg-purple-700 transition text-center">
+                <i className="fas fa-calendar-alt text-2xl text-yellow-400 mb-2"></i>
+                <h3 className="font-semibold">Calendar</h3>
+              </a>
+            </div>
+          </div>
         </div>
       </section>
+
+      {/* KP Predictions Section */}
+      <section id="predictions" className="bg-gray-50 py-16">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">KP Predictions</h2>
+            <p className="text-gray-600">Advanced predictive astrology using the KP Newcomb system</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition">
+              <div className="text-purple-600 mb-4">
+                <i className="fas fa-star text-4xl"></i>
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Birth Chart Analysis</h3>
+              <p className="text-gray-600">Comprehensive birth chart analysis using KP system with detailed predictions.</p>
+              <a href="#contact" className="inline-block mt-4 text-purple-600 hover:text-purple-800">Learn More →</a>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition">
+              <div className="text-purple-600 mb-4">
+                <i className="fas fa-chart-line text-4xl"></i>
+              </div>
+              <h3 className="text-xl font-semibold mb-3">KP Newcomb System</h3>
+              <p className="text-gray-600">Precise predictions using advanced KP Newcomb calculations and techniques.</p>
+              <a href="#contact" className="inline-block mt-4 text-purple-600 hover:text-purple-800">Learn More →</a>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition">
+              <div className="text-purple-600 mb-4">
+                <i className="fas fa-calendar-check text-4xl"></i>
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Yearly Predictions</h3>
+              <p className="text-gray-600">Detailed year-ahead forecasts based on KP astrological principles.</p>
+              <a href="#contact" className="inline-block mt-4 text-purple-600 hover:text-purple-800">Learn More →</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Calendar Section */}
+      <section id="calendar" className="bg-purple-900 text-white py-16">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">AstroBalendar</h2>
+            <p className="text-gray-300">Your personalized astrological calendar and timing guide</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="bg-purple-800 p-8 rounded-lg">
+              <h3 className="text-2xl font-semibold mb-4">Daily Planetary Positions</h3>
+              <ul className="space-y-3">
+                <li className="flex items-center">
+                  <i className="fas fa-sun text-yellow-400 mr-3"></i>
+                  <span>Sun Transit and Daily Aspects</span>
+                </li>
+                <li className="flex items-center">
+                  <i className="fas fa-moon text-yellow-400 mr-3"></i>
+                  <span>Moon Phases and Nakshatras</span>
+                </li>
+                <li className="flex items-center">
+                  <i className="fas fa-star text-yellow-400 mr-3"></i>
+                  <span>Auspicious Timings</span>
+                </li>
+                <li className="flex items-center">
+                  <i className="fas fa-clock text-yellow-400 mr-3"></i>
+                  <span>Daily Muhurtha</span>
+                </li>
+              </ul>
+              <button className="mt-6 bg-yellow-400 text-purple-900 px-6 py-2 rounded-md font-medium hover:bg-yellow-500 transition">
+                View Calendar
+              </button>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-purple-800 p-6 rounded-lg text-center">
+                <i className="fas fa-calendar-alt text-3xl text-yellow-400 mb-3"></i>
+                <h4 className="font-semibold">Monthly View</h4>
+              </div>
+              <div className="bg-purple-800 p-6 rounded-lg text-center">
+                <i className="fas fa-list text-3xl text-yellow-400 mb-3"></i>
+                <h4 className="font-semibold">Daily Details</h4>
+              </div>
+              <div className="bg-purple-800 p-6 rounded-lg text-center">
+                <i className="fas fa-bell text-3xl text-yellow-400 mb-3"></i>
+                <h4 className="font-semibold">Reminders</h4>
+              </div>
+              <div className="bg-purple-800 p-6 rounded-lg text-center">
+                <i className="fas fa-cog text-3xl text-yellow-400 mb-3"></i>
+                <h4 className="font-semibold">Preferences</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Matchmaking Section */}
+      <section id="matchmaking" className="bg-gray-50 py-16">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">KP Matchmaking</h2>
+            <p className="text-gray-600">Advanced compatibility analysis using KP astrology</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <h3 className="text-xl font-semibold mb-4 text-purple-900">Comprehensive Match Analysis</h3>
+              <ul className="space-y-3">
+                <li className="flex items-center text-gray-700">
+                  <i className="fas fa-check-circle text-yellow-400 mr-3"></i>
+                  <span>KP House Compatibility</span>
+                </li>
+                <li className="flex items-center text-gray-700">
+                  <i className="fas fa-check-circle text-yellow-400 mr-3"></i>
+                  <span>Planetary Strength Analysis</span>
+                </li>
+                <li className="flex items-center text-gray-700">
+                  <i className="fas fa-check-circle text-yellow-400 mr-3"></i>
+                  <span>Relationship Longevity</span>
+                </li>
+                <li className="flex items-center text-gray-700">
+                  <i className="fas fa-check-circle text-yellow-400 mr-3"></i>
+                  <span>Dasha Period Compatibility</span>
+                </li>
+              </ul>
+              <button className="mt-6 bg-yellow-400 text-purple-900 px-6 py-3 rounded-md font-medium hover:bg-yellow-500 transition">
+                Check Compatibility
+              </button>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <h3 className="text-xl font-semibold mb-4 text-purple-900">Detailed Reports Include</h3>
+              <ul className="space-y-3">
+                <li className="flex items-center text-gray-700">
+                  <i className="fas fa-star text-yellow-400 mr-3"></i>
+                  <span>Mental Compatibility Score</span>
+                </li>
+                <li className="flex items-center text-gray-700">
+                  <i className="fas fa-star text-yellow-400 mr-3"></i>
+                  <span>Financial Harmony Analysis</span>
+                </li>
+                <li className="flex items-center text-gray-700">
+                  <i className="fas fa-star text-yellow-400 mr-3"></i>
+                  <span>Children & Family Life</span>
+                </li>
+                <li className="flex items-center text-gray-700">
+                  <i className="fas fa-star text-yellow-400 mr-3"></i>
+                  <span>Auspicious Marriage Timing</span>
+                </li>
+              </ul>
+              <button className="mt-6 bg-yellow-400 text-purple-900 px-6 py-3 rounded-md font-medium hover:bg-yellow-500 transition">
+                Get Detailed Report
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Prasna Section */}
+      <section id="prasna" className="bg-purple-900 text-white py-16">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Prasna (Horary)</h2>
+            <p className="text-gray-300">Get instant answers to your pressing questions</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-purple-800 p-6 rounded-lg">
+              <div className="text-center mb-4">
+                <i className="fas fa-question-circle text-4xl text-yellow-400"></i>
+                <h3 className="text-xl font-semibold mt-2">Quick Questions</h3>
+              </div>
+              <p className="text-gray-300">Get immediate insights for simple yes/no questions</p>
+            </div>
+            <div className="bg-purple-800 p-6 rounded-lg">
+              <div className="text-center mb-4">
+                <i className="fas fa-search text-4xl text-yellow-400"></i>
+                <h3 className="text-xl font-semibold mt-2">Detailed Analysis</h3>
+              </div>
+              <p className="text-gray-300">In-depth analysis for complex life situations</p>
+            </div>
+            <div className="bg-purple-800 p-6 rounded-lg">
+              <div className="text-center mb-4">
+                <i className="fas fa-clock text-4xl text-yellow-400"></i>
+                <h3 className="text-xl font-semibold mt-2">Timing Guidance</h3>
+              </div>
+              <p className="text-gray-300">Know the best time for important decisions</p>
+            </div>
+          </div>
+          <div className="mt-12 text-center">
+            <button className="bg-yellow-400 text-purple-900 px-8 py-3 rounded-md font-medium hover:bg-yellow-500 transition">
+              Ask a Question Now
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="bg-purple-900 text-white py-16">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div>
+              <h2 className="text-3xl font-bold mb-6">Get in Touch</h2>
+              <p className="text-gray-300 mb-8">
+                Ready to discover what the stars have in store for you? Contact us for personalized astrological guidance.
+              </p>
+              <div className="space-y-4">
+                <div className="flex items-center">
+                  <i className="fas fa-envelope mr-3 text-yellow-400"></i>
+                  <span>contact@kpastro.com</span>
+                </div>
+                <div className="flex items-center">
+                  <i className="fas fa-phone mr-3 text-yellow-400"></i>
+                  <span>+1 234 567 890</span>
+                </div>
+                <div className="flex items-center">
+                  <i className="fas fa-map-marker-alt mr-3 text-yellow-400"></i>
+                  <span>Mumbai, India</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <form className="space-y-4">
+                <div>
+                  <input type="text" placeholder="Your Name" className="w-full px-4 py-2 rounded-md bg-purple-800 border border-purple-600 focus:outline-none focus:border-yellow-400" />
+                </div>
+                <div>
+                  <input type="email" placeholder="Your Email" className="w-full px-4 py-2 rounded-md bg-purple-800 border border-purple-600 focus:outline-none focus:border-yellow-400" />
+                </div>
+                <div>
+                  <textarea placeholder="Your Message" rows="4" className="w-full px-4 py-2 rounded-md bg-purple-800 border border-purple-600 focus:outline-none focus:border-yellow-400"></textarea>
+                </div>
+                <button type="submit" className="w-full bg-yellow-400 text-purple-900 py-2 rounded-md font-medium hover:bg-yellow-500 transition">
+                  Send Message
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-purple-950 text-gray-300 py-8">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center">
+            <div className="flex justify-center space-x-6 mb-4">
+              <a href="https://facebook.com" className="hover:text-yellow-400 transition"><i className="fab fa-facebook"></i></a>
+              <a href="https://twitter.com" className="hover:text-yellow-400 transition"><i className="fab fa-twitter"></i></a>
+              <a href="https://instagram.com" className="hover:text-yellow-400 transition"><i className="fab fa-instagram"></i></a>
+              <a href="https://youtube.com" className="hover:text-yellow-400 transition"><i className="fab fa-youtube"></i></a>
+            </div>
+            <p>&copy; 2023 KP Astro. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
-
-const features = [
-  {
-    icon: "🌟",
-    title: "KP Astrology Calculator",
-    description: "Calculate precise planetary positions and aspects using the KP system."
-  },
-  {
-    icon: "🔮",
-    title: "Newcombe Predictions",
-    description: "Get accurate predictions based on KP Newcombe methodology."
-  },
-  {
-    icon: "📊",
-    title: "Birth Chart Analysis",
-    description: "Detailed birth chart analysis using KP house system and significators."
-  }
-];
-
-const predictionTools = [
-  {
-    title: "Birth Chart",
-    description: "Generate your detailed KP birth chart with house positions"
-  },
-  {
-    title: "Daily Predictions",
-    description: "Get daily predictions based on KP transit analysis"
-  },
-  {
-    title: "Compatibility",
-    description: "Check relationship compatibility using KP system"
-  },
-  {
-    title: "Custom Reports",
-    description: "Generate comprehensive KP astrology reports"
-  }
-];
 
 export default HomePage;
