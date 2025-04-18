@@ -1,50 +1,65 @@
 #!/bin/bash
 
-# Verification script for AstroBalendar deployment
+# Exit on any error
+set -e
+
+# Configuration
+DOMAIN="astrobalendar.com"
+EC2_USER="ec2-user"
+EC2_HOST="your-ec2-instance-ip"
+APP_NAME="astrobalendar"
 
 echo "Verifying deployment..."
 
 # Check if Nginx is running
 echo "Checking Nginx status..."
-if systemctl is-active --quiet nginx; then
-    echo "✅ Nginx is running"
-else
-    echo "❌ Nginx is not running"
-    echo "Starting Nginx..."
-    sudo systemctl start nginx
-fi
+ssh $EC2_USER@$EC2_HOST "sudo systemctl is-active nginx" || {
+    echo "Error: Nginx is not running"
+    exit 1
+}
 
-# Check if website files exist
-echo "Checking website files..."
-if [ -f "/var/www/astrobalendar/index.html" ]; then
-    echo "✅ Website files found"
-else
-    echo "❌ Website files not found"
-fi
+# Check if SSL certificate is valid
+echo "Checking SSL certificate..."
+ssl_expiry=$(ssh $EC2_USER@$EC2_HOST "sudo certbot certificates | grep 'Expiry Date' | awk '{print \$3,\$4,\$5}'")
+echo "SSL certificate expires: $ssl_expiry"
 
-# Check if Nginx configuration is valid
-echo "Checking Nginx configuration..."
-if sudo nginx -t; then
-    echo "✅ Nginx configuration is valid"
-else
-    echo "❌ Nginx configuration has errors"
-fi
-
-# Check if domain is resolving
-echo "Checking domain resolution..."
-if host astrobalendar.com; then
-    echo "✅ Domain is resolving"
-else
-    echo "❌ Domain resolution failed"
-fi
+# Check if application is running via PM2
+echo "Checking PM2 process..."
+ssh $EC2_USER@$EC2_HOST "pm2 show $APP_NAME" || {
+    echo "Error: Application is not running in PM2"
+    exit 1
+}
 
 # Check if website is accessible
 echo "Checking website accessibility..."
-if curl -s -o /dev/null -w "%{http_code}" http://localhost; then
-    echo "✅ Website is accessible"
-else
-    echo "❌ Website is not accessible"
-fi
+curl -s -o /dev/null -w "%{http_code}" https://$DOMAIN | grep 200 || {
+    echo "Error: Website is not accessible"
+    exit 1
+}
 
-echo "Verification complete!"
-echo "Visit http://astrobalendar.com to view your website"
+# Check application logs for errors
+echo "Checking application logs for errors..."
+ssh $EC2_USER@$EC2_HOST "pm2 logs $APP_NAME --lines 100 | grep -i error" || {
+    echo "No errors found in recent logs"
+}
+
+# Check Nginx error logs
+echo "Checking Nginx error logs..."
+ssh $EC2_USER@$EC2_HOST "sudo tail -n 50 /var/log/nginx/error.log | grep -i error" || {
+    echo "No errors found in Nginx logs"
+}
+
+# Check disk space
+echo "Checking disk space..."
+ssh $EC2_USER@$EC2_HOST "df -h | grep -v tmpfs"
+
+# Check memory usage
+echo "Checking memory usage..."
+ssh $EC2_USER@$EC2_HOST "free -h"
+
+# Check CPU load
+echo "Checking CPU load..."
+ssh $EC2_USER@$EC2_HOST "uptime"
+
+echo "Deployment verification completed successfully!"
+echo "Website: https://$DOMAIN"
