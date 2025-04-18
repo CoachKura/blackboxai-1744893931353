@@ -7,20 +7,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'astro-purple': '#6B46C1',
-        'astro-blue': '#2C5282',
-        'astro-indigo': '#4C51BF',
+        purple: {
+          900: '#4C1D95',
+          800: '#5B21B6',
+          700: '#6D28D9',
+          600: '#7C3AED',
+          950: '#2E1065'
+        }
       },
       fontFamily: {
-        'poppins': ['Poppins', 'sans-serif'],
-      },
-      animation: {
-        'float': 'float 6s ease-in-out infinite',
-      },
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        sans: ['Poppins', 'sans-serif']
       }
-    },
+    }
   },
-  plugins: [],
+  plugins: []
 }
